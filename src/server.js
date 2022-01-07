@@ -11,5 +11,9 @@ app.get("/*", (_, res) => res.redirect("/"));
 const handleListen = () => console.log(`Listening on http://localhost:3000`);
 
 const server = http.createServer(app);
+function handleConnection(socket) {
+  console.log(socket);
+}
 const wss = new WebSocket.Server({ server });
+wss.on("connection", handleConnection);
 server.listen(3000, handleListen);
