@@ -1,5 +1,5 @@
-const messageList = document.querySelector("form");
-const messageForm = document.querySelector("ul");
+const messageForm = document.querySelector("form");
+const messageList = document.querySelector("ul");
 const socket = new WebSocket(`ws://${window.location.host}`);
 
 function handleOpen() {
@@ -15,3 +15,10 @@ socket.addEventListener("message", (message) => {
 socket.addEventListener("close", () => {
   console.log("Disconnected from Server");
 });
+
+function handleSubmit(event) {
+  event.preventDefault();
+  const input = messageForm.querySelector("input");
+  console.log(input.value);
+}
+messageForm.addEventListener("submit", handleSubmit);

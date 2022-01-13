@@ -18,7 +18,7 @@ function onSocketClose() {
   console.log("Disconnected from the browser!");
 }
 function onSocketMessage(message) {
-  console.log(message.toString("utf8"));
+  console.log(message);
 }
 wss.on("connection", (socket) => {
   console.log("Connected to Browser");
