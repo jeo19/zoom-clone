@@ -26,8 +26,12 @@ wss.on("connection", (socket) => {
   socket.on("close", onSocketClose);
   socket.on("message", (message) => {
     const parsed = JSON.parse(message);
-    if (parsed.type === "new_message") {
-      sockets.forEach((aSocket) => aSocket.send(parsed.payload));
+    switch (parsed.type) {
+      case "new_message":
+        sockets.forEach((aSocket) => aSocket.send(parsed.payload));
+
+      case "nicknmae":
+        console.log(parsed.payload);
     }
   });
 });
