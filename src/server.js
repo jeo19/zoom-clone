@@ -13,9 +13,12 @@ const handleListen = () => console.log(`Listening on http://localhost:3000`);
 const httpServer = http.createServer(app);
 
 const wsServer = new Server(httpServer);
-function onSocketClose() {
-  console.log("Disconnected from the browser!");
-}
+wsServer.on("connection", (socket) => {
+  console.log(socket);
+});
+// function onSocketClose() {
+//   console.log("Disconnected from the browser!");
+// }
 
 /* const sockets = [];
 
@@ -39,4 +42,4 @@ wss.on("connection", (socket) => {
     }
   });
 }); */
-server.listen(3000, handleListen);
+httpServer.listen(3000, handleListen);
