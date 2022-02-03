@@ -14,7 +14,7 @@ const httpServer = http.createServer(app);
 
 const wsServer = new Server(httpServer);
 wsServer.on("connection", (socket) => {
-  console.log(socket);
+  socket.on("enter_room", (msg) => console.log(msg));
 });
 // function onSocketClose() {
 //   console.log("Disconnected from the browser!");
