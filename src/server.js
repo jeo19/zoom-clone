@@ -18,8 +18,7 @@ wsServer.on("connection", (socket) => {
     console.log(msg);
     setTimeout(() => {
       done();
-    }),
-      5000;
+    }, 5000);
   });
 });
 // function onSocketClose() {
