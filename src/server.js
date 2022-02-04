@@ -35,7 +35,6 @@ wss.on("connection", (socket) => {
           aSocket.send(`${socket.nickname}:${message.payload}`)
         );
         break;
-
       case "nickname":
         socket["nickname"] = message.payload;
         break;
