@@ -18,12 +18,8 @@ wsServer.on("connection", (socket) => {
     console.log(`Socket event:${event}`);
   });
   socket.on("enter_room", (roomName, done) => {
-    console.log(socket.rooms);
     socket.join(roomName);
-    console.log(socket.rooms);
-    setTimeout(() => {
-      done("hello from the backend");
-    }, 5000);
+    done();
   });
 });
 // function onSocketClose() {
