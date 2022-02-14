@@ -27,6 +27,10 @@ wsServer.on("connection", (socket) => {
       socket.to(room).emit("bye");
     });
   });
+  socket.on("new_message", (msg, room, addMessage) => {
+    socket.to(room).emit("new_message", msg);
+    addMessage();
+  });
 });
 // function onSocketClose() {
 //   console.log("Disconnected from the browser!");
