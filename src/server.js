@@ -12,10 +12,16 @@ const handleListen = () => console.log(`Listening on http://localhost:3000`);
 
 const httpServer = http.createServer(app);
 
+function publicRooms() {
+  const sids = wsServer.sockets.adapter.sids;
+  const rooms = wsServer.sockets.adapter.rooms;
+}
+
 const wsServer = new Server(httpServer);
 wsServer.on("connection", (socket) => {
   socket["nickname"] = "Anonymous";
   socket.onAny((event) => {
+    console.log(wsServer.sockets.adapter);
     console.log(`Socket event:${event}`);
   });
   socket.on("enter_room", (roomName, done) => {
