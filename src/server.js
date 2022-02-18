@@ -13,8 +13,18 @@ const handleListen = () => console.log(`Listening on http://localhost:3000`);
 const httpServer = http.createServer(app);
 
 function publicRooms() {
-  const sids = wsServer.sockets.adapter.sids;
-  const rooms = wsServer.sockets.adapter.rooms;
+  const {
+    sockets: {
+      adapter: { sids, rooms },
+    },
+  } = wsServer;
+  const pubulicRooms = [];
+  rooms.forEach((_, key) => {
+    if (sids.get(key) === undefined) {
+      publicRooms.push(key);
+    }
+  });
+  return publicRooms;
 }
 
 const wsServer = new Server(httpServer);
