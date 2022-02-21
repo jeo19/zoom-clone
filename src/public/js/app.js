@@ -57,3 +57,4 @@ socket.on("bye", (user) => {
   addMessage(`${user} left.`);
 });
 socket.on("new_message", addMessage);
+socket.on("room_change", console.log);
