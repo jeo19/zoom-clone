@@ -1,6 +1,7 @@
 import http from "http";
 import express from "express";
 import { Server } from "socket.io";
+import { instrument } from "@socket.io/admin-ui";
 const app = express();
 app.set("view engine", "pug");
 app.set("views", __dirname + "/views");
@@ -31,7 +32,15 @@ function countRoom(roomName) {
   return wsServer.sockets.adapter.rooms.get(roomName)?.size;
 }
 
-const wsServer = new Server(httpServer);
+const wsServer = new Server(httpServer, {
+  cors: {
+    origin: ["https://admin.socket.io"],
+    credentials: true,
+  },
+});
+instrument(wsServer, {
+  auth: false,
+});
 wsServer.on("connection", (socket) => {
   socket["nickname"] = "Anonymous";
   socket.onAny((event) => {
