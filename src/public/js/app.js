@@ -104,8 +104,10 @@ function handleWelcomeForm(event) {
 
 welcomeForm.addEventListener("submit", handleWelcomeForm);
 //socket code
-socket.on("welcome", () => {
-  console.log("Someone joined!");
+socket.on("welcome", async () => {
+  const offer = await myPeerConnection.createOffer();
+  myPeerConnection.setLocalDescription(offer);
+  socket.emit("offer", offer, roomName);
 });
 
 //RTC Code
@@ -114,5 +116,5 @@ function makeConnection() {
   //Create the connection of an audio and a video by myStream on RTC peer to peer
   myStream
     .getTracks()
-    .forEach((track) => myPeerConnection.addTrack(track.myStream));
+    .forEach((track) => myPeerConnection.addTrack(track, myStream));
 }
