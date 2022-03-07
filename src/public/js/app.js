@@ -104,10 +104,16 @@ function handleWelcomeForm(event) {
 
 welcomeForm.addEventListener("submit", handleWelcomeForm);
 //socket code
+//this handler is running on the Peer A
 socket.on("welcome", async () => {
   const offer = await myPeerConnection.createOffer();
   myPeerConnection.setLocalDescription(offer);
   socket.emit("offer", offer, roomName);
+});
+
+//this handler is running on the Peer B
+socket.on("offer", (offer) => {
+  console.log(offer);
 });
 
 //RTC Code
