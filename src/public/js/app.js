@@ -113,9 +113,11 @@ socket.on("welcome", async () => {
 });
 
 //this handler is running on the Peer B
-socket.on("offer", (offer) => {
+socket.on("offer", async (offer) => {
   myPeerConnection.setRemoteDescription(offer);
-  console.log(offer);
+  const answer = await myPeerConnection.createAnswer();
+
+  console.log(answer);
 });
 
 //RTC Code
