@@ -116,6 +116,7 @@ socket.on("welcome", async () => {
 socket.on("offer", async (offer) => {
   myPeerConnection.setRemoteDescription(offer);
   const answer = await myPeerConnection.createAnswer();
+  myPeerConnection.setLocalDescription(answer);
 
   console.log(answer);
 });
