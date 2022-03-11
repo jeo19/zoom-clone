@@ -129,6 +129,11 @@ socket.on("answer", (answer) => {
   myPeerConnection.setRemoteDescription(answer);
 });
 
+socket.on("ice", (ice) => {
+  console.log("received candidate");
+  myPeerConnection.addIceCandidate(ice);
+});
+
 //RTC Code
 function makeConnection() {
   myPeerConnection = new RTCPeerConnection();
@@ -140,6 +145,6 @@ function makeConnection() {
 }
 
 function handleIce(data) {
-  console.log("got the ice candidate");
-  console.log(data);
+  console.log("sent candidate");
+  socket.emit("ice", data.candidate, roomName);
 }
