@@ -105,7 +105,7 @@ async function handleWelcomeForm(event) {
 
 welcomeForm.addEventListener("submit", handleWelcomeForm);
 //socket code
-//this handler is running on the Peer A
+//This handler is running on the Peer A
 socket.on("welcome", async () => {
   const offer = await myPeerConnection.createOffer();
   myPeerConnection.setLocalDescription(offer);
@@ -138,6 +138,7 @@ socket.on("ice", (ice) => {
 function makeConnection() {
   myPeerConnection = new RTCPeerConnection();
   myPeerConnection.addEventListener("icecandidate", handleIce);
+  myPeerConnection.addEventListener("addstream", handleAddStream);
   //Create the connection of an audio and a video by myStream on RTC peer to peer
   myStream
     .getTracks()
@@ -147,4 +148,8 @@ function makeConnection() {
 function handleIce(data) {
   console.log("sent candidate");
   socket.emit("ice", data.candidate, roomName);
+}
+
+function handleAddStream(data) {
+  
 }
