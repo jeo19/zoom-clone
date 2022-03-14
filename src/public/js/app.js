@@ -151,5 +151,5 @@ function handleIce(data) {
 }
 
 function handleAddStream(data) {
-  
-}
+  const peersStream=document.getElementById("peersStream")
+    
