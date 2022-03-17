@@ -77,10 +77,12 @@ function handleCameraClick() {
 
 async function handleCameraChange() {
   await getMedia(cameraSelect.value);
+  const videoTrack = myStream.getVideoTracks()[0];
   if (myPeerConnection) {
     const videoSender = myPeerConnection
       .getSenders()
       .find((sender) => sender.track.kind === "video");
+    videoSender.replaceTrack(videoTrack);
   }
 }
 
