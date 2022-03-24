@@ -11,6 +11,7 @@ let muted = false;
 let cameraOff = false;
 let roomName;
 let myPeerConnection;
+let myDataChannel;
 async function getCameras() {
   try {
     const devices = await navigator.mediaDevices.enumerateDevices();
@@ -118,6 +119,7 @@ welcomeForm.addEventListener("submit", handleWelcomeForm);
 //socket code
 //This handler is running on the Peer A
 socket.on("welcome", async () => {
+  const myDataChannel = myDataChannel.createDataChannel("chat");
   const offer = await myPeerConnection.createOffer();
   myPeerConnection.setLocalDescription(offer);
   console.log("sent the offer");
