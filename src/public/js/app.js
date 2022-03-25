@@ -130,6 +130,7 @@ socket.on("welcome", async () => {
 
 //this handler is running on the Peer B
 socket.on("offer", async (offer) => {
+  myPeerConnection.addEventListener("datachannel", console.log);
   console.log("received the offer");
   myPeerConnection.setRemoteDescription(offer);
   const answer = await myPeerConnection.createAnswer();
