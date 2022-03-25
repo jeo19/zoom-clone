@@ -119,8 +119,8 @@ welcomeForm.addEventListener("submit", handleWelcomeForm);
 //socket code
 //This handler is running on the Peer A
 socket.on("welcome", async () => {
-  const myDataChannel = myPeerConnection.createDataChannel("chat");
-  myDataChannel.addEventListener("message", console.log);
+  myDataChannel = myPeerConnection.createDataChannel("chat");
+  myDataChannel.addEventListener("message", (event) => console.log(event.data));
   console.log("made data channel");
   const offer = await myPeerConnection.createOffer();
   myPeerConnection.setLocalDescription(offer);
@@ -130,7 +130,12 @@ socket.on("welcome", async () => {
 
 //this handler is running on the Peer B
 socket.on("offer", async (offer) => {
-  myPeerConnection.addEventListener("datachannel", console.log);
+  myPeerConnection.addEventListener("datachannel", (event) => {
+    myDataChannel = event.channel;
+    myDataChannel.addEventListener("message", (event) =>
+      console.log(event.data)
+    );
+  });
   console.log("received the offer");
   myPeerConnection.setRemoteDescription(offer);
   const answer = await myPeerConnection.createAnswer();
